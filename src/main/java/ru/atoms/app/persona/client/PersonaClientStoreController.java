@@ -29,8 +29,8 @@ public class PersonaClientStoreController {
     PersonaStoreService personaStoreService;
 
     @RequestMapping(value = "/{type}",
-            method = {RequestMethod.POST, RequestMethod.GET}
-            )
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {"application/json;charset=UTF-8", "application/xml;charset=UTF-8"})
     public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(
             @RequestBody PersonaResultOperationRequest personaResultOperationRequest,
             @PathVariable String type) {
