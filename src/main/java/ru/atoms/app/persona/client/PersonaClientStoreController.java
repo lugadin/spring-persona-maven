@@ -19,27 +19,33 @@ import ru.atoms.app.persona.struct.PersonaResultOperationRequest;
 import ru.atoms.app.persona.struct.PersonaResultOperationResponse;
 
 /**
- *
  * @author kochetov
  */
 @Controller
 @RequestMapping("/persona/store")
 public class PersonaClientStoreController {
+
     @Autowired
     PersonaStoreService personaStoreService;
-    @RequestMapping(value = "/{type}", method = {RequestMethod.POST, RequestMethod.GET}, produces={"application/json", "application/xml"})
-    public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(@RequestBody PersonaResultOperationRequest personaResultOperationRequest, @PathVariable String type) {
-        if(type.equals(BindPersonaSessionTypePath.ADDRESS)) {
+
+    @RequestMapping(value = "/{type}",
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {"application/json;charset=UTF-8", "application/xml;charset=UTF-8"})
+    public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(
+            @RequestBody PersonaResultOperationRequest personaResultOperationRequest,
+            @PathVariable String type) {
+
+        if (type.equals(BindPersonaSessionTypePath.ADDRESS)) {
             return personaStoreService.bindPersonaAddress(personaResultOperationRequest);
-        } else if(type.equals(BindPersonaSessionTypePath.NDFL)) {
+        } else if (type.equals(BindPersonaSessionTypePath.NDFL)) {
             return personaStoreService.bindPersonaNdfl(personaResultOperationRequest);
-        } else if(type.equals(BindPersonaSessionTypePath.NDFLADV)) {
+        } else if (type.equals(BindPersonaSessionTypePath.NDFLADV)) {
             return personaStoreService.bindPersonaNdflAdv(personaResultOperationRequest);
-        } else if(type.equals(BindPersonaSessionTypePath.BILLINGBANK)) {
+        } else if (type.equals(BindPersonaSessionTypePath.BILLINGBANK)) {
             return personaStoreService.bindPersonaBank(personaResultOperationRequest);
-        } else if(type.equals(BindPersonaSessionTypePath.BILLINGCARD)) {
+        } else if (type.equals(BindPersonaSessionTypePath.BILLINGCARD)) {
             return personaStoreService.bindPersonaCard(personaResultOperationRequest);
-        } else if(type.equals(BindPersonaSessionTypePath.ADDRESSUA)) {
+        } else if (type.equals(BindPersonaSessionTypePath.ADDRESSUA)) {
             return personaStoreService.bindPersonaAddressUa(personaResultOperationRequest);
         } else {
             return null;
