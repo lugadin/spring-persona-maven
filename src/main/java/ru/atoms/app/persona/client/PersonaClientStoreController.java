@@ -32,8 +32,8 @@ public class PersonaClientStoreController {
             method = {RequestMethod.POST, RequestMethod.GET},
             produces = {"application/json;charset=UTF-8", "application/xml;charset=UTF-8"})
     public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(
-            @PathVariable(name = "type")  String type,
-            @RequestBody PersonaResultOperationRequest personaResultOperationRequest
+            @RequestBody PersonaResultOperationRequest personaResultOperationRequest,
+             @PathVariable String type
             ) {
 
         if (type.equals(BindPersonaSessionTypePath.ADDRESS)) {
