@@ -8,11 +8,7 @@ package ru.atoms.app.persona.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ru.atoms.app.persona.client.service.PersonaStoreService;
 import ru.atoms.app.persona.struct.BindPersonaSessionTypePath;
 import ru.atoms.app.persona.struct.PersonaResultOperationRequest;
@@ -28,26 +24,23 @@ public class PersonaClientStoreController {
     @Autowired
     PersonaStoreService personaStoreService;
 
-    @RequestMapping(value = "/{type}",
-            method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {"application/json;charset=UTF-8", "application/xml;charset=UTF-8"})
+    @PostMapping(value = "/{type}", produces = {"application/json;charset=UTF-8", "application/xml;charset=UTF-8"})
     public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(
             @RequestBody PersonaResultOperationRequest personaResultOperationRequest,
-             @PathVariable String type
-            ) {
+            @PathVariable String type
+    ) {
 
-        if (type.equals(BindPersonaSessionTypePath.ADDRESS)) {
-            return personaStoreService.bindPersonaAddress(personaResultOperationRequest);
-        } else if (type.equals(BindPersonaSessionTypePath.NDFL)) {
-            return personaStoreService.bindPersonaNdfl(personaResultOperationRequest);
-        } else if (type.equals(BindPersonaSessionTypePath.NDFLADV)) {
-            return personaStoreService.bindPersonaNdflAdv(personaResultOperationRequest);
-        } else if (type.equals(BindPersonaSessionTypePath.BILLINGBANK)) {
-            return personaStoreService.bindPersonaBank(personaResultOperationRequest);
-        } else if (type.equals(BindPersonaSessionTypePath.BILLINGCARD)) {
-            return personaStoreService.bindPersonaCard(personaResultOperationRequest);
-        }  else {
-            return null;
-        }
+        return switch (type) {
+            case BindPersonaSessionTypePath.ADDRESS ->
+                    personaStoreService.bindPersonaAddress(personaResultOperationRequest);
+            case BindPersonaSessionTypePath.NDFL -> personaStoreService.bindPersonaNdfl(personaResultOperationRequest);
+            case BindPersonaSessionTypePath.NDFLADV ->
+                    personaStoreService.bindPersonaNdflAdv(personaResultOperationRequest);
+            case BindPersonaSessionTypePath.BILLINGBANK ->
+                    personaStoreService.bindPersonaBank(personaResultOperationRequest);
+            case BindPersonaSessionTypePath.BILLINGCARD ->
+                    personaStoreService.bindPersonaCard(personaResultOperationRequest);
+            default -> null;
+        };
     }
 }
