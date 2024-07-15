@@ -10,8 +10,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
@@ -33,34 +31,34 @@ public class InitClientPersonaSession {
         this.personaProperties = personaProperties;
         this.personaSessionInit = personaSessionInit;
     }
-    
+
     public PersonaClientInitSessionAnswer getSession() {
         RestTemplate restTemplate = new RestTemplate();
         SimpleClientHttpRequestFactory rf = (SimpleClientHttpRequestFactory) restTemplate.getRequestFactory() ;
         rf.setConnectTimeout(10000);
         rf.setReadTimeout(10000);
         String exceptionStr = null;
-        
+
         PersonaClientInitSessionAnswer answer = null;
-        
+
         int http_status = 0;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType( MediaType.APPLICATION_JSON );
         HttpEntity request= new HttpEntity( personaSessionInit, headers );
-        try {       
-            answer = restTemplate.postForObject(personaProperties.getPersonaViewURL() + personaProperties.getPersonaRestUrl(), 
+        try {
+            answer = restTemplate.postForObject(personaProperties.getPersonaViewURL() + personaProperties.getPersonaRestUrl(),
                     request, PersonaClientInitSessionAnswer.class);
             http_status = 200;
         } catch (HttpClientErrorException | HttpServerErrorException httpErrorException) {
-            http_status = httpErrorException.getStatusCode().value();            
-            exceptionStr = httpErrorException.getMessage();            
-        } catch (ResourceAccessException resourceAccessException) {            
+            http_status = httpErrorException.getStatusCode().value();
+            exceptionStr = httpErrorException.getMessage();
+        } catch (ResourceAccessException resourceAccessException) {
             exceptionStr = resourceAccessException.getMessage();
-        } catch (RestClientException restClientException) {        
+        } catch (RestClientException restClientException) {
             // другие ошибки
             exceptionStr = restClientException.getMessage();
         }
-        
+
         if(answer==null) {
             answer = new PersonaClientInitSessionAnswer();
             answer.setResult(0);
@@ -69,7 +67,7 @@ public class InitClientPersonaSession {
             answer.setExceptionMsg(exceptionStr);
         }
         answer.setHttpStatus(http_status);
-        
+
         return answer;
     }
 
@@ -88,9 +86,9 @@ public class InitClientPersonaSession {
     public void setPersonaSessionInit(PersonaSessionInit personaSessionInit) {
         this.personaSessionInit = personaSessionInit;
     }
-    
-    
-    
-    
-    
+
+
+
+
+
 }

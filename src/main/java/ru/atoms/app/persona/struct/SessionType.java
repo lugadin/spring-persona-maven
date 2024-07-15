@@ -12,7 +12,6 @@ public class SessionType {
     public static final int ADDRESS = 1;
     public static final int NDFL = 2;
     public static final int NDFLADV = 3;
-    public static final int ADDRESSUA = 4;
     public static final int BILLINGBANK = 5;
     public static final int BILLINGCARD = 6;
 }

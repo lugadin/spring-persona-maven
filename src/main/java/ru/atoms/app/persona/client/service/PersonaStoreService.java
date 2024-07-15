@@ -19,5 +19,4 @@ public interface PersonaStoreService {
     PersonaResultOperationResponse bindPersonaBank(PersonaResultOperationRequest personaResultOperationRequest);
     PersonaResultOperationResponse bindPersonaCard(PersonaResultOperationRequest personaResultOperationRequest);
     PersonaResultOperationResponse bindPersonaNdflAdv(PersonaResultOperationRequest personaResultOperationRequest);
-    PersonaResultOperationResponse bindPersonaAddressUa(PersonaResultOperationRequest personaResultOperationRequest);
 }
