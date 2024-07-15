@@ -32,8 +32,9 @@ public class PersonaClientStoreController {
             method = {RequestMethod.POST, RequestMethod.GET},
             produces = {"application/json;charset=UTF-8", "application/xml;charset=UTF-8"})
     public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(
-            @RequestBody PersonaResultOperationRequest personaResultOperationRequest,
-            @PathVariable String type) {
+            @PathVariable(name = "type")  String type,
+            @RequestBody PersonaResultOperationRequest personaResultOperationRequest
+            ) {
 
         if (type.equals(BindPersonaSessionTypePath.ADDRESS)) {
             return personaStoreService.bindPersonaAddress(personaResultOperationRequest);
@@ -45,9 +46,7 @@ public class PersonaClientStoreController {
             return personaStoreService.bindPersonaBank(personaResultOperationRequest);
         } else if (type.equals(BindPersonaSessionTypePath.BILLINGCARD)) {
             return personaStoreService.bindPersonaCard(personaResultOperationRequest);
-        } else if (type.equals(BindPersonaSessionTypePath.ADDRESSUA)) {
-            return personaStoreService.bindPersonaAddressUa(personaResultOperationRequest);
-        } else {
+        }  else {
             return null;
         }
     }
