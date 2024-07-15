@@ -27,7 +27,8 @@ import ru.atoms.app.persona.struct.PersonaResultOperationResponse;
 public class PersonaClientStoreController {
     @Autowired
     PersonaStoreService personaStoreService;
-    @RequestMapping(value = "/{type}", method = {RequestMethod.POST, RequestMethod.GET}, produces={"application/json", "application/xml"})
+    @RequestMapping(value = "/{type}", method = {RequestMethod.POST, RequestMethod.GET},
+            produces={"application/json", "application/xml"})
     public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(@RequestBody PersonaResultOperationRequest personaResultOperationRequest, @PathVariable String type) {
         if(type.equals(BindPersonaSessionTypePath.ADDRESS)) {
             return personaStoreService.bindPersonaAddress(personaResultOperationRequest);
