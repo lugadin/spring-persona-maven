@@ -27,7 +27,7 @@ public class PersonaClientStoreController {
     @PostMapping(value = "/{type}", produces = {"application/json;charset=UTF-8", "application/xml;charset=UTF-8"})
     public @ResponseBody PersonaResultOperationResponse bindPersonaAddressCommand(
             @RequestBody PersonaResultOperationRequest personaResultOperationRequest,
-            @PathVariable String type
+            @PathVariable("type") String type
     ) {
 
         return switch (type) {
